@@ -93,6 +93,16 @@
     }
   }
 
+  viewer.camera.setView({
+    destination: Cesium.Cartesian3.fromDegrees(-122.38329, 37.74015, 16000),
+    orientation: {
+      pitch: Cesium.Math.toRadians(-70.0),
+    },
+  });
+  
+  const cartesian = Cesium.Cartesian3.fromDegrees(-122.39429, 37.78988);
+  getServiceArea(Cesium.Cartographic.fromCartesian(cartesian));
+
 
   </script>
 
