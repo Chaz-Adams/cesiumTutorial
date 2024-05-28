@@ -2,18 +2,18 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <!-- Include the CesiumJS JavaScript and CSS files -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
 </head>
 <body>
+  <div id="cesiumContainer"></div>
+
     <!-- <script src="https://cesium.com/downloads/cesiumjs/releases/1.117/Build/Cesium/Cesium.js"></script>
     <link href="https://cesium.com/downloads/cesiumjs/releases/1.117/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
     </script> -->
     <script src="https://cesium.com/downloads/cesiumjs/releases/1.110/Build/Cesium/Cesium.js"></script>
-    <link
-    href="https://cesium.com/downloads/cesiumjs/releases/1.110/Build/Cesium/Widgets/widgets.css"
-    rel="stylesheet"
-    />
+    <link href="https://cesium.com/downloads/cesiumjs/releases/1.110/Build/Cesium/Widgets/widgets.css"
+    rel="stylesheet"/>
     <script src="https://unpkg.com/@esri/arcgis-rest-request@4.0.0/dist/bundled/request.umd.js"></script>
     <script src="https://unpkg.com/@esri/arcgis-rest-routing@4.0.0/dist/bundled/routing.umd.js"></script>
 
@@ -26,13 +26,21 @@
       <div id="toolbar"></div>
     </style> -->
 
-  <div id="cesiumContainer"></div>
+  
   
   <script type="module">
+
+// viewer.scene.setTerrain(
+//   new Cesium.Terrain(
+//     Cesium.CesiumTerrainProvider.fromIonAssetId(1),
+//   ),
+// );
+
+
     // Your access token can be found at: https://ion.cesium.com/tokens.
     // Replace `your_access_token` with your Cesium ion access token.
 
-    Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJhMmUzZmVmOS1hMjNkLTQ4NWItOTIzZS02NGUxMjBhZTIzYTQiLCJpZCI6MjE4NTAzLCJpYXQiOjE3MTY5MjQ4NjZ9.0GR5aDE-yysYG2hzVFGJoeJgT2sVEXW_l8gJe47NdpU';
+    Cesium.Ion.defaultAccessToken = '';
 
     // Initialize the Cesium Viewer in the HTML element with the `cesiumContainer` ID.
     // const viewer = new Cesium.Viewer('cesiumContainer', {
