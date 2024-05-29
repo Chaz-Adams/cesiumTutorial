@@ -91,7 +91,45 @@
     if (!Cesium.defined(dataSource)) {
       return;
     }
+
+    const entities = dataSource.entities.values;
+
+    for (let i = 0; i < entities.length; i++) {
+      const feature = entities[i];
+      feature.polygon.outline = false;
+
+      if (feature.properties.FromBreak == 0) {
+        feature.polygon.material = Cesium.Color.fromHsl(
+          0.5833,
+          0.8,
+          0.9,
+          0.5
+        );
+      } else if (feature.properties.FromBreak == 5) {
+        feature.polygon.material = Cesium.Color.fromHsl(
+          0.5833,
+          0.9,
+          0.7,
+          0.5
+        );
+      } else {
+        feature.polygon.material = Cesium.Color.fromHsl(
+          0.5833,
+          1.0,
+          0.4,
+          0.5
+        );
+      }
+    }
+
+    const scene = viewer.scene;
+    scene.invertClassification = true;
+    scene.invertClassificationColor = new Cesium.Color(0.4, 0.4, 0.4, 1.0);
+
   }
+
+  
+
 
   viewer.camera.setView({
     destination: Cesium.Cartesian3.fromDegrees(-122.38329, 37.74015, 16000),
@@ -101,6 +139,39 @@
   });
   
   const cartesian = Cesium.Cartesian3.fromDegrees(-122.39429, 37.78988);
+
+  const marker = viewer.entities.add({
+    name: "start",
+    billboard: {
+      verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
+      heightReference: Cesium.HeightReference.CLAMP_TO_GROUND,
+      image: "./marker.svg",
+      disableDepthTestDistance: Number.POSITIVE_INFINITY,
+      scale: 0.5,
+    },
+  });
+
+  marker.position = cartesian;
+
+  viewer.screenSpaceEventHandler.setInputAction((movement) => {
+    viewer.dataSources.removeAll();
+    viewer.scene.invertClassification = false;
+    marker.show = false;
+
+    const pickedPosition = viewer.scene.pickPosition(movement.position);
+
+    if (!Cesium.defined(pickedPosition)) {
+        return;
+    }
+
+    marker.position = pickedPosition;
+    marker.show = true;
+    viewer.scene.invertClassification = true;
+
+    const cartographic = Cesium.Cartographic.fromCartesian(pickedPosition);
+    getServiceArea(cartographic);
+  }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
+
   getServiceArea(Cesium.Cartographic.fromCartesian(cartesian));
 
 
